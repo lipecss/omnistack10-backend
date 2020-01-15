@@ -4,7 +4,9 @@ const DevController = require('./controllers/DevController')
 const SearchController = require('./controllers/SearchController')
 
 const routes = Router();
-
+router.get('/', (request, response) => {
+    response.send({ message: 'Index'})
+})
 routes.get('/devs', DevController.index)
 routes.post('/devs', DevController.store)
 routes.put('/devs/:id', DevController.update)
