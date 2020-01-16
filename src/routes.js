@@ -10,7 +10,7 @@ routes.get('/', (request, response) => {
 routes.get('/devs', DevController.index)
 routes.post('/devs', DevController.store)
 routes.put('/devs/:id', DevController.update)
-routes.delete('/devs/:id', DevController.destroy)
+routes.delete('/devs/:id/:secretkey', DevController.destroy)
 
 
 routes.get('/search', SearchController.index)

@@ -83,14 +83,19 @@ exports.update = async (request, response) => {
 //Deletar Devs
 exports.destroy = async (request, response) => {
     const id = request.params.id
+    const key = request.params.secretkey
 
     try{
-        if(ObjectId.isValid(id)){
-            var dev = await Dev.findByIdAndRemove({_id: id});
-            return response.status(200).send({ messa: 'User Updated' })
-         }else{
-            return response.status(404).json({ message: 'Invalid Object id' })
-         }
+        if(key && key === process.env.SECRET_KEY_DELETE){
+            if(ObjectId.isValid(id)){
+                var dev = await Dev.findByIdAndRemove({_id: id});
+                return response.status(200).send({ messa: 'User Deleted' })
+             }else{
+                return response.status(404).json({ message: 'Invalid Object id' })
+             }
+        }else{
+            return response.status(401).json({ message: 'User not Allowed' })
+        }
     }catch(err){
         return response.status(404).json({ message: `Error to get user: ${err}` })
     }
